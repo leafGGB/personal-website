@@ -61,10 +61,34 @@
       radial-gradient(ellipse 80% 60% at 0% -10%, var(--color-bg-gradient-1) 0%, transparent 60%),
       radial-gradient(ellipse 60% 50% at 100% 100%, var(--color-bg-gradient-2) 0%, transparent 55%),
       radial-gradient(ellipse 40% 50% at 50% 50%, var(--color-bg-gradient-3) 0%, transparent 50%),
+      radial-gradient(ellipse 50% 40% at 75% 20%, var(--color-bg-gradient-1) 0%, transparent 48%),
+      radial-gradient(ellipse 45% 35% at 25% 80%, var(--color-bg-gradient-2) 0%, transparent 42%),
       var(--color-bg);
+    background-size: 110% 110%, 110% 110%, 110% 110%, 110% 110%, 110% 110%;
+    animation: bgLuminous 40s ease-in-out infinite;
     color: var(--color-text);
     font-family: "Inter", system-ui, -apple-system, sans-serif;
     min-height: 100dvh;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background-image: radial-gradient(circle, var(--color-border) 0.5px, transparent 0.5px);
+    background-size: 32px 32px;
+    opacity: 0.35;
+    pointer-events: none;
+    mask-image: radial-gradient(ellipse 70% 55% at 50% 50%, black 25%, transparent 70%);
+    -webkit-mask-image: radial-gradient(ellipse 70% 55% at 50% 50%, black 25%, transparent 70%);
+  }
+
+  @keyframes bgLuminous {
+    0%, 100% { background-position: 0% 0%, 100% 100%, 50% 50%, 75% 20%, 25% 80%; }
+    25% { background-position: 2% -2%, 98% 102%, 52% 48%, 73% 22%, 27% 78%; }
+    50% { background-position: -1% 2%, 101% 98%, 48% 52%, 77% 18%, 23% 82%; }
+    75% { background-position: 1% 0%, 99% 100%, 51% 49%, 74% 21%, 26% 79%; }
   }
 
   ::selection {
@@ -490,5 +514,9 @@
     scrollbar-color: rgba(255, 255, 255, 0.08) transparent;
   }
 }
+
+
+
+
 
 

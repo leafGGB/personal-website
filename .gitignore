@@ -10,3 +10,6 @@ __pycache__/
 *.pid
 .DS_Store
 Thumbs.db
+
+frontend/node_modules/
+
