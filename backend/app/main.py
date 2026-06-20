@@ -1,10 +1,10 @@
-from contextlib import asynccontextmanager
+﻿from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from app.config import settings
 from app.database import init_db
-from app.api import auth, journal, projects, travel
+from app.api import auth, journal, projects, travel, messages
 from app.models.user import User
 from app.core.security import hash_password
 import os
@@ -47,8 +47,10 @@ app.include_router(auth.router)
 app.include_router(journal.router)
 app.include_router(projects.router)
 app.include_router(travel.router)
+app.include_router(messages.router)
 
 
 @app.get("/api/health")
 async def health():
     return {"status": "ok"}
+
