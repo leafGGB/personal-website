@@ -520,3 +520,174 @@
 
 
 
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+
+
+/* Dewdrop pill */
+.dew-drop { position:absolute; inset:-6px -12px; border-radius:999px; pointer-events:none; opacity:0; transform:scale(0.85); transition:all 0.4s cubic-bezier(0.34,1.56,0.64,1); background:rgba(255,255,255,0.03); backdrop-filter:blur(6px) saturate(130%); -webkit-backdrop-filter:blur(6px) saturate(130%); box-shadow:inset 0 1.5px 0 rgba(255,255,255,0.2), 0 6px 20px rgba(0,0,0,0.08); }
+.group:hover .dew-drop { opacity:1; transform:scale(1.06); backdrop-filter:blur(14px) saturate(180%); -webkit-backdrop-filter:blur(14px) saturate(180%); box-shadow:inset 0 2px 0 rgba(255,255,255,0.4), 0 12px 40px rgba(0,0,0,0.12), 0 0 60px rgba(126,184,247,0.04); }
+:root:not(.dark) .dew-drop { background:rgba(255,255,255,0.5); box-shadow:inset 0 1.5px 0 rgba(255,255,255,0.8), 0 6px 20px rgba(0,0,0,0.04); }
+:root:not(.dark) .group:hover .dew-drop { background:rgba(255,255,255,0.72); box-shadow:inset 0 2px 0 rgba(255,255,255,0.95), 0 12px 40px rgba(0,0,0,0.08), 0 0 60px rgba(74,143,224,0.03); }
+
+/* Pearlescent text */
+.dew-text { transition:all 0.4s cubic-bezier(0.34,1.56,0.64,1); }
+.group:hover .dew-text { background:linear-gradient(135deg,rgba(255,255,255,0.9) 0%,rgba(200,215,255,0.65) 40%,rgba(255,235,245,0.65) 60%,rgba(255,255,255,0.9) 100%); background-size:200% 200%; -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+:root:not(.dark) .group:hover .dew-text { background:linear-gradient(135deg,rgba(30,40,70,0.85) 0%,rgba(70,100,190,0.6) 40%,rgba(170,110,140,0.6) 60%,rgba(30,40,70,0.85) 100%); background-size:200% 200%; -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+
+/* Nav glass scroll */
+.nav-glass { background:rgba(15,17,21,0.65) !important; backdrop-filter:blur(18px) saturate(160%); -webkit-backdrop-filter:blur(18px) saturate(160%); border-bottom:1px solid rgba(255,255,255,0.04); }
+:root:not(.dark) .nav-glass { background:rgba(224,230,240,0.72) !important; backdrop-filter:blur(18px) saturate(160%); -webkit-backdrop-filter:blur(18px) saturate(160%); border-bottom:1px solid rgba(0,0,0,0.04); }
+
+
+/* Crystal Prism */
+@keyframes prism-spin { to { transform: rotate(360deg); } }
+
+.prism-glow {
+  position: absolute;
+  inset: -3px;
+  border-radius: 999px;
+  opacity: 0;
+  transition: opacity 0.45s ease, filter 0.45s ease;
+  pointer-events: none;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    rgba(255,120,160,0.20) 40deg,
+    rgba(255,210,110,0.15) 80deg,
+    rgba(130,255,170,0.15) 140deg,
+    rgba(110,200,255,0.20) 200deg,
+    rgba(190,130,255,0.18) 260deg,
+    rgba(255,130,210,0.15) 310deg,
+    transparent 360deg
+  );
+  filter: blur(2px);
+}
+.group:hover .prism-glow {
+  opacity: 1;
+  animation: prism-spin 3s linear infinite;
+}
+
+/* Prism edge refraction (thin border glow) */
+.prism-edge {
+  position: absolute;
+  inset: -1px;
+  border-radius: 999px;
+  opacity: 0;
+  transition: opacity 0.45s ease;
+  pointer-events: none;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    rgba(255,180,200,0.30) 40deg,
+    rgba(255,220,180,0.20) 80deg,
+    rgba(180,255,200,0.20) 140deg,
+    rgba(180,220,255,0.30) 200deg,
+    rgba(220,180,255,0.25) 260deg,
+    rgba(255,180,220,0.20) 310deg,
+    transparent 360deg
+  );
+  mask: linear-gradient(black,black);
+  -webkit-mask: linear-gradient(black,black);
+  mask-composite: exclude;
+  -webkit-mask-composite: xor;
+}
+.group:hover .prism-edge {
+  opacity: 1;
+  animation: prism-spin 3s linear infinite;
+}
+
+/* Active state — inner core glow */
+.prism-active {
+  position: absolute;
+  inset: 4px;
+  border-radius: 999px;
+  opacity: 0;
+  transition: opacity 0.45s ease;
+  pointer-events: none;
+  box-shadow: inset 0 0 20px rgba(126,184,247,0.06);
+}
+.is-active .prism-active {
+  opacity: 1;
+  animation: prism-pulse 2s ease-in-out infinite;
+}
+:root:not(.dark) .is-active .prism-active {
+  box-shadow: inset 0 0 20px rgba(74,143,224,0.08);
+}
+
+@keyframes prism-pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+/* Light mode prism */
+:root:not(.dark) .prism-glow {
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    rgba(200,80,120,0.15) 40deg,
+    rgba(200,160,80,0.12) 80deg,
+    rgba(80,200,120,0.12) 140deg,
+    rgba(80,160,200,0.15) 200deg,
+    rgba(140,80,200,0.12) 260deg,
+    rgba(200,80,160,0.12) 310deg,
+    transparent 360deg
+  );
+}
+:root:not(.dark) .prism-edge {
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    rgba(200,140,160,0.25) 40deg,
+    rgba(200,180,140,0.20) 80deg,
+    rgba(140,200,160,0.20) 140deg,
+    rgba(140,180,200,0.25) 200deg,
+    rgba(180,140,200,0.22) 260deg,
+    rgba(200,140,180,0.20) 310deg,
+    transparent 360deg
+  );
+}
+
+.prism-link { transform-style:preserve-3d; transition:transform 0.4s cubic-bezier(0.34,1.56,0.64,1); }
+
+
+/* ── Echo Pulse ── */
+.echo-ring { position:absolute; inset:0; border-radius:999px; pointer-events:none; }
+
+/* Hover — single expanding ring (like sonar) */
+.echo-ring::before {
+  content:''; position:absolute; inset:0; border-radius:inherit;
+  border:1.5px solid var(--color-accent);
+  opacity:0; transform:scale(0.3);
+}
+.group:hover .echo-ring::before {
+  animation:echo-expand 0.7s ease-out 1 forwards;
+}
+@keyframes echo-expand {
+  0%   { opacity:0.5; transform:scale(0.3); }
+  30%  { opacity:0.3; transform:scale(1.1); }
+  100% { opacity:0;   transform:scale(2); }
+}
+
+/* Active — continuous heartbeat pulse */
+.is-active .echo-ring::after {
+  content:''; position:absolute; inset:-3px; border-radius:inherit;
+  border:1px solid var(--color-accent);
+  opacity:0.15;
+  animation:echo-beat 2.4s ease-in-out infinite;
+}
+@keyframes echo-beat {
+  0%,100% { opacity:0.06; transform:scale(1); }
+  10%     { opacity:0.35; transform:scale(1.06); box-shadow:0 0 12px rgba(126,184,247,0.06); }
+  22%     { opacity:0.08; transform:scale(1); }
+  38%     { opacity:0.2;  transform:scale(1.03); box-shadow:0 0 8px rgba(126,184,247,0.04); }
+  50%     { opacity:0.06; transform:scale(1); }
+}
