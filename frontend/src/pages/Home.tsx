@@ -68,7 +68,7 @@ export default function Home() {
             </div>
             <div className="md:col-span-2">
               <motion.div initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
-                className="glass-card p-8 md:p-10" style={{ borderRadius: "24px" }}>
+                className="glass-card glass-depth-near p-8 md:p-10" style={{ borderRadius: "24px" }}>
                 <div className="flex items-center gap-3 mb-6">
                   <div className="w-2 h-2 rounded-full bg-[var(--color-accent)]" />
                   <span className="font-mono text-xs text-[var(--color-text-tertiary)] tracking-wider uppercase">Featured</span>
@@ -190,3 +190,4 @@ export default function Home() {
     </PageTransition>
   );
 }
+

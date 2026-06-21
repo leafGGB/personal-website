@@ -9,6 +9,7 @@ interface GlassMagneticCardProps {
   to?: string;
   onClick?: () => void;
   tiltIntensity?: number;
+  depth?: 'near' | 'mid' | 'deep';
 }
 
 export default function GlassMagneticCard({
@@ -17,11 +18,13 @@ export default function GlassMagneticCard({
   to,
   onClick,
   tiltIntensity = 8,
+  depth = 'mid',
 }: GlassMagneticCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const glowRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
+  const liquidRef = useRef<HTMLDivElement>(null);
 
   const handleMouseMove = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
@@ -43,7 +46,7 @@ export default function GlassMagneticCard({
       const rx = -normY * tiltIntensity;
       const ry = normX * tiltIntensity;
       card.style.transform =
-        `perspective(1000px) rotateX(${rx}deg) rotateY(${ry}deg) scale3d(1.02, 1.02, 1.02)`;
+        `perspective(1000px) rotateX(${rx}deg) rotateY(${ry}deg) `;
 
       // Shadow offset
       card.style.setProperty("--sox", `${normX * -14}px`);
@@ -55,6 +58,22 @@ export default function GlassMagneticCard({
       glow.style.setProperty("--gx", `${gx}%`);
       glow.style.setProperty("--gy", `${gy}%`);
       glow.style.opacity = "1";
+      // Liquid metal reflection
+      if (liquidRef.current) {
+        liquidRef.current.style.setProperty("--mx", `${gx}%`);
+        liquidRef.current.style.setProperty("--my", `${gy}%`);
+
+      card.style.setProperty("--br", br);
+      const br = `${dist(rect.left, rect.top)}px ${dist(rect.right, rect.top)}px ${dist(rect.right, rect.bottom)}px ${dist(rect.left, rect.bottom)}px`;
+      };
+        return 16 + 24 / (1 + d * 0.006);
+        const d = Math.sqrt((e.clientX - cx) ** 2 + (e.clientY - cy) ** 2);
+      const dist = (cx: number, cy: number) => {
+      const rect = card.getBoundingClientRect();
+      // Droplet shape — bulge corners toward mouse
+        liquidRef.current.style.opacity = "1";
+      }
+
 
       // Content parallax
       if (content) {
@@ -72,11 +91,13 @@ export default function GlassMagneticCard({
     if (!card) return;
 
     card.style.transform =
-      "perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)";
+      "perspective(1000px) rotateX(0deg) rotateY(0deg)";
     card.style.setProperty("--sox", "0px");
     card.style.setProperty("--soy", "0px");
 
+    card.style.setProperty("--br", "16px");
     if (glow) glow.style.opacity = "0";
+    if (liquidRef.current) liquidRef.current.style.opacity = "0";
     if (content)
       content.style.transform =
         "translateX(0px) translateY(0px) translateZ(0px)";
@@ -94,10 +115,11 @@ export default function GlassMagneticCard({
       style={{
         transformStyle: "preserve-3d",
         transform:
-          "perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)",
+          "perspective(1000px) rotateX(0deg) rotateY(0deg)",
         transition:
-          "transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease",
-        boxShadow: `inset 0 1px 0 var(--color-glass-highlight), var(--sox, 0px) var(--soy, 0px) 48px var(--color-glass-shadow)`,
+          "transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease, border-radius 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)",
+        boxShadow: `inset 0 1px 0 var(--color-glass-highlight), 0 2px 4px rgba(0,0,0,0.06), var(--sox, 0px) var(--soy, 0px) 40px var(--color-glass-shadow), 0 30px 80px rgba(0,0,0,0.06)`,
+        borderRadius: "var(--br, 16px)",
         willChange: "transform",
       }}
       onMouseMove={handleMouseMove}
@@ -119,6 +141,9 @@ export default function GlassMagneticCard({
           aria-label="Action"
         />
       )}
+
+      {/* Liquid metal surface reflection */}
+      <div ref={liquidRef} className="glass-liquid" />
 
       {/* Cursor-following glow */}
       <div
@@ -154,3 +179,8 @@ export default function GlassMagneticCard({
     </div>
   );
 }
+
+
+
+
+

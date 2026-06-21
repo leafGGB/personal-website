@@ -13,6 +13,7 @@ interface Particle {
   phase: number;
   twinkleSpeed: number;
   hueOffset: number; // individual hue variation
+  layer: 0 | 1 | 2; // parallax depth layer
 }
 
 export default function BackgroundParticles() {
@@ -61,6 +62,7 @@ export default function BackgroundParticles() {
           phase: Math.random() * Math.PI * 2,
           twinkleSpeed: Math.random() * 0.025 + 0.008,
           hueOffset: (Math.random() - 0.5) * 40,
+          layer: (r => r > 0.6 ? 1 : r > 0.3 ? 0 : 2)(Math.random()) as 0 | 1 | 2,
         };
       });
     };
@@ -91,6 +93,8 @@ export default function BackgroundParticles() {
       const dark = isDark();
       time += 1;
       const sp = scrollRef.current; // 0 (top) → 1 (bottom)
+      const scrollY = window.scrollY;
+      const pf = [0.03, 0.08, 0.15]; // parallax factor per layer (back, mid, front)
 
       // ---- Scroll-driven parameters ----
       // Vertical bias: float up at top → sink down at bottom
@@ -201,19 +205,19 @@ export default function BackgroundParticles() {
 
         // Outer glow
         ctx!.beginPath();
-        ctx!.arc(p.x, p.y, displayR * 5, 0, Math.PI * 2);
+        ctx!.arc(p.x, p.y + scrollY * pf[p.layer], displayR * 5, 0, Math.PI * 2);
         ctx!.fillStyle = `rgba(${colorStr}, ${displayAlpha * 0.1})`;
         ctx!.fill();
 
         // Inner glow
         ctx!.beginPath();
-        ctx!.arc(p.x, p.y, displayR * 2.5, 0, Math.PI * 2);
+        ctx!.arc(p.x, p.y + scrollY * pf[p.layer], displayR * 2.5, 0, Math.PI * 2);
         ctx!.fillStyle = `rgba(${colorStr}, ${displayAlpha * 0.18})`;
         ctx!.fill();
 
         // Core
         ctx!.beginPath();
-        ctx!.arc(p.x, p.y, displayR, 0, Math.PI * 2);
+        ctx!.arc(p.x, p.y + scrollY * pf[p.layer], displayR, 0, Math.PI * 2);
         ctx!.fillStyle = `rgba(${colorStr}, ${displayAlpha})`;
         ctx!.fill();
       }
@@ -224,7 +228,9 @@ export default function BackgroundParticles() {
           const a = particles[i];
           const b = particles[j];
           const dx = a.x - b.x;
-          const dy = a.y - b.y;
+          const ay = a.y + scrollY * pf[a.layer];
+          const by = b.y + scrollY * pf[b.layer];
+          const dy = ay - by;
           const dist = Math.sqrt(dx * dx + dy * dy);
           // Connection distance expands in mid-scroll
           const maxDist = 120 + connMul * 60;
@@ -237,8 +243,8 @@ export default function BackgroundParticles() {
             const cg = Math.round(bg + (sg - bg) * blend);
             const cb = Math.round(bb + (sb - bb) * blend);
             ctx!.beginPath();
-            ctx!.moveTo(a.x, a.y);
-            ctx!.lineTo(b.x, b.y);
+            ctx!.moveTo(a.x, ay);
+            ctx!.lineTo(b.x, by);
             ctx!.strokeStyle = `rgba(${cr},${cg},${cb},${alpha})`;
             ctx!.lineWidth = 0.7;
             ctx!.stroke();
@@ -314,5 +320,8 @@ export default function BackgroundParticles() {
     />
   );
 }
+
+
+
 
 

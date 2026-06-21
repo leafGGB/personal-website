@@ -123,7 +123,9 @@
     -webkit-backdrop-filter: blur(20px) saturate(160%);
     box-shadow:
       inset 0 1px 0 rgba(255, 255, 255, 0.06),
-      0 8px 32px rgba(0, 0, 0, 0.4);
+      0 2px 4px rgba(0, 0, 0, 0.06),
+      0 12px 40px rgba(0, 0, 0, 0.15),
+      0 30px 80px rgba(0, 0, 0, 0.06);
     transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 
@@ -155,8 +157,10 @@
     background: rgba(255, 255, 255, 0.08);
     box-shadow:
       inset 0 1px 0 rgba(255, 255, 255, 0.06),
-      0 12px 48px rgba(0, 0, 0, 0.5);
-    transform: translateY(-2px);
+      0 4px 8px rgba(0, 0, 0, 0.06),
+      0 16px 48px rgba(0, 0, 0, 0.18),
+      0 40px 100px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px) scale(1.01);
   }
 
   .dark .glass-card {
@@ -164,7 +168,9 @@
     background: rgba(255, 255, 255, 0.04);
     box-shadow:
       inset 0 1px 0 rgba(255, 255, 255, 0.06),
-      0 8px 32px rgba(0, 0, 0, 0.5);
+      0 2px 4px rgba(0, 0, 0, 0.06),
+      0 12px 40px rgba(0, 0, 0, 0.15),
+      0 30px 80px rgba(0, 0, 0, 0.06);
   }
   .dark .glass-card:hover {
     border-color: rgba(255, 255, 255, 0.14);
@@ -177,7 +183,9 @@
     border: 1px solid rgba(0, 0, 0, 0.06);
     box-shadow:
       inset 0 1px 0 rgba(255, 255, 255, 0.9),
-      0 8px 32px rgba(0, 0, 0, 0.1);
+      0 2px 4px rgba(0, 0, 0, 0.03),
+      0 12px 40px rgba(0, 0, 0, 0.06),
+      0 30px 80px rgba(0, 0, 0, 0.03);
   }
   :root:not(.dark) .glass-card:hover {
     background: rgba(255, 255, 255, 0.85);
@@ -199,7 +207,21 @@
     transition-duration: 0.1s !important;
   }
 
-  /* === GLASS NAV === */
+  /* Depth-of-field blur layers */
+  .glass-depth-near {
+    backdrop-filter: blur(12px) saturate(180%);
+    -webkit-backdrop-filter: blur(12px) saturate(180%);
+  }
+  .glass-depth-mid {
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+  }
+  .glass-depth-deep {
+    backdrop-filter: blur(28px) saturate(130%);
+    -webkit-backdrop-filter: blur(28px) saturate(130%);
+  }
+
+    /* === GLASS NAV === */
   .glass-nav {
     position: relative;
     isolation: isolate;
@@ -691,3 +713,86 @@
   38%     { opacity:0.2;  transform:scale(1.03); box-shadow:0 0 8px rgba(126,184,247,0.04); }
   50%     { opacity:0.06; transform:scale(1); }
 }
+
+
+
+
+/* ── Dynamic Light Source ── */
+.light-source {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  background: radial-gradient(
+    ellipse 60% 40% at var(--lx, 50%) var(--ly, 50%),
+    rgba(126, 184, 247, 0.05) 0%,
+    rgba(126, 184, 247, 0.02) 30%,
+    transparent 60%
+  );
+  will-change: background;
+  transition: opacity 0.3s;
+}
+:root:not(.dark) .light-source {
+  background: radial-gradient(
+    ellipse 60% 40% at var(--lx, 50%) var(--ly, 50%),
+    rgba(74, 143, 224, 0.04) 0%,
+    rgba(74, 143, 224, 0.015) 30%,
+    transparent 60%
+  );
+}
+
+
+
+/* ── Liquid Metal Surface Reflection ── */
+@property --liquid-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes liquid-shimmer {
+  to { --liquid-angle: 360deg; }
+}
+
+.glass-liquid {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 5;
+  transition: opacity 0.35s ease;
+  background: conic-gradient(
+    from var(--liquid-angle, 0deg) at var(--mx, 50%) var(--my, 50%),
+    transparent 0deg,
+    rgba(255,255,255,0.08) 20deg,
+    rgba(180,210,255,0.04) 45deg,
+    transparent 75deg,
+    rgba(255,255,255,0.025) 115deg,
+    transparent 155deg,
+    rgba(255,210,230,0.03) 195deg,
+    rgba(255,255,255,0.05) 235deg,
+    transparent 275deg,
+    rgba(180,220,255,0.03) 315deg,
+    transparent 360deg
+  );
+  filter: blur(3px);
+  animation: liquid-shimmer 6s linear infinite;
+}
+:root:not(.dark) .glass-liquid {
+  background: conic-gradient(
+    from var(--liquid-angle, 0deg) at var(--mx, 50%) var(--my, 50%),
+    transparent 0deg,
+    rgba(255,255,255,0.25) 20deg,
+    rgba(200,220,255,0.12) 45deg,
+    transparent 75deg,
+    rgba(255,255,255,0.08) 115deg,
+    transparent 155deg,
+    rgba(255,220,235,0.09) 195deg,
+    rgba(255,255,255,0.14) 235deg,
+    transparent 275deg,
+    rgba(200,225,255,0.09) 315deg,
+    transparent 360deg
+  );
+}
+

@@ -20,7 +20,7 @@ export default function AdminDashboard() {
           <Link
             key={c.to}
             to={c.to}
-            className="glass-card-interactive p-6"
+            className="glass-card-interactive glass-depth-deep p-6"
             style={{ borderRadius: 16, display: "block" }}
           >
             <h2 className="font-display text-lg font-bold text-[var(--color-text)] mb-1">
@@ -35,3 +35,4 @@ export default function AdminDashboard() {
     </div>
   );
 }
+
