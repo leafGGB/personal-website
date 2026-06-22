@@ -76,7 +76,7 @@ export default function Nav({ dark, onThemeStart }: NavProps) {
                 <Link
                   key={link.to}
                   to={link.to}
-                  className={`droplet-btn ${s ? "!h-12 !px-6 text-xs lg:text-sm" : "!h-14 !px-7 text-sm lg:text-base"} ${active ? "active" : ""}`}
+                  className={`droplet-btn ${s ? "!h-12 !px-6 text-[10px] lg:text-xs" : "!h-14 !px-7 text-sm lg:text-base"} ${active ? "active" : ""}`}
                 >
                   {link.label}
                 </Link>
@@ -89,11 +89,11 @@ export default function Nav({ dark, onThemeStart }: NavProps) {
             <button
               onClick={toggleLang}
               className={`glass-btn flex items-center justify-center rounded-xl text-xs font-semibold text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] transition-all duration-300 ${
-                s ? "w-11 h-11 lg:w-12 lg:h-12" : "w-14 h-14 lg:w-16 lg:h-16"
+                s ? "w-8 h-8 lg:w-9 lg:h-9" : "w-10 h-10 lg:w-11 lg:h-11"
               }`}
               aria-label="Toggle language"
             >
-              <span className="font-mono text-xs lg:text-sm">
+              <span className="font-mono text-[10px] lg:text-xs">
                 {t("language", "toggle")}
               </span>
             </button>
@@ -101,15 +101,15 @@ export default function Nav({ dark, onThemeStart }: NavProps) {
             <button
               onClick={onThemeStart}
               className={`glass-btn relative flex items-center justify-center rounded-xl transition-all duration-300 ${
-                s ? "w-11 h-11 lg:w-12 lg:h-12" : "w-14 h-14 lg:w-16 lg:h-16"
+                s ? "w-8 h-8 lg:w-9 lg:h-9" : "w-10 h-10 lg:w-11 lg:h-11"
               }`}
               aria-label="Toggle theme"
             >
               <div
                 className={`relative transition-all duration-300 ${
                   s
-                    ? "w-4 h-4 lg:w-5 lg:h-5"
-                    : "w-5 h-5 lg:w-6 lg:h-6"
+                    ? "w-3 h-3 lg:w-3.5 lg:h-3.5"
+                    : "w-3.5 h-3.5 lg:w-4 lg:h-4"
                 }`}
               >
                 <Moon
@@ -136,6 +136,7 @@ export default function Nav({ dark, onThemeStart }: NavProps) {
     </header>
   );
 }
+
 
 
 
