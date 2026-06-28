@@ -1,4 +1,4 @@
-﻿import { useState } from "react"
+import { useState } from "react"
 import PageTransition from "../components/animations/PageTransition";
 import ScrollReveal from "../components/animations/ScrollReveal";
 import { apiPost } from "../api/client"
@@ -14,6 +14,11 @@ export default function Contact() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!name.trim() || !email.trim() || !msg.trim()) {
+      setStatus("error");
+      setTimeout(() => setStatus("idle"), 3000);
+      return;
+    }
     setStatus("sending");
     try {
       await apiPost("/api/messages", { name, email, message: msg });
@@ -85,8 +90,9 @@ export default function Contact() {
                       type="submit"
                       className="w-full px-6 py-3 rounded-xl bg-[var(--color-accent)] text-[var(--color-bg)] text-sm font-medium hover:brightness-110 transition-all"
                     >
-                      {t("contact","send")}`n                    {status === "done" && <p className="mt-3 text-xs text-green-400 text-center">消息已发送！</p>}`n                    {status === "error" && <p className="mt-3 text-xs text-red-400 text-center">发送失败，请稍后再试</p>}
-                    </button>
+                      {t("contact","send")}</button>
+                    {status === "done" && <p className="mt-3 text-xs text-green-400 text-center">消息已发送！</p>}
+                    {status === "error" && <p className="mt-3 text-xs text-red-400 text-center">发送失败，请稍后再试</p>}
                   </form>
                 </div>
               </ScrollReveal>

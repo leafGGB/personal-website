@@ -1,4 +1,4 @@
-ï»¿"use client";
+"use client";
 import { useRef, ReactNode, useCallback, useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -10,6 +10,7 @@ interface GlassMagneticCardProps {
   onClick?: () => void;
   tiltIntensity?: number;
   depth?: 'near' | 'mid' | 'deep';
+  style?: React.CSSProperties;
 }
 
 export default function GlassMagneticCard({
@@ -19,6 +20,7 @@ export default function GlassMagneticCard({
   onClick,
   tiltIntensity = 8,
   depth = 'mid',
+  style,
 }: GlassMagneticCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const glowRef = useRef<HTMLDivElement>(null);
@@ -58,22 +60,26 @@ export default function GlassMagneticCard({
       glow.style.setProperty("--gx", `${gx}%`);
       glow.style.setProperty("--gy", `${gy}%`);
       glow.style.opacity = "1";
+
       // Liquid metal reflection
       if (liquidRef.current) {
         liquidRef.current.style.setProperty("--mx", `${gx}%`);
         liquidRef.current.style.setProperty("--my", `${gy}%`);
-
-      card.style.setProperty("--br", br);
-      const br = `${dist(rect.left, rect.top)}px ${dist(rect.right, rect.top)}px ${dist(rect.right, rect.bottom)}px ${dist(rect.left, rect.bottom)}px`;
-      };
-        return 16 + 24 / (1 + d * 0.006);
-        const d = Math.sqrt((e.clientX - cx) ** 2 + (e.clientY - cy) ** 2);
-      const dist = (cx: number, cy: number) => {
-      const rect = card.getBoundingClientRect();
-      // Droplet shape â€” bulge corners toward mouse
         liquidRef.current.style.opacity = "1";
+        // Droplet shape ¡ª bulge corners toward mouse
+        const dist = (px: number, py: number): number => {
+          const dx = e.clientX - px;
+          const dy = e.clientY - py;
+          return Math.sqrt(dx * dx + dy * dy);
+        };
+        const br = [
+          `${16 + 24 / (1 + dist(rect.left, rect.top) * 0.006)}px`,
+          `${16 + 24 / (1 + dist(rect.right, rect.top) * 0.006)}px`,
+          `${16 + 24 / (1 + dist(rect.right, rect.bottom) * 0.006)}px`,
+          `${16 + 24 / (1 + dist(rect.left, rect.bottom) * 0.006)}px`,
+        ].join(" ");
+        card.style.setProperty("--br", br);
       }
-
 
       // Content parallax
       if (content) {
@@ -81,7 +87,7 @@ export default function GlassMagneticCard({
           `translateX(${normX * 4}px) translateY(${normY * 4}px) translateZ(24px)`;
       }
     },
-    [tiltIntensity]
+    []
   );
 
   const handleMouseLeave = useCallback(() => {
@@ -113,6 +119,7 @@ export default function GlassMagneticCard({
       ref={cardRef}
       className={`glass-card-interactive group relative overflow-hidden ${className}`}
       style={{
+        ...style,
         transformStyle: "preserve-3d",
         transform:
           "perspective(1000px) rotateX(0deg) rotateY(0deg)",
@@ -179,8 +186,3 @@ export default function GlassMagneticCard({
     </div>
   );
 }
-
-
-
-
-

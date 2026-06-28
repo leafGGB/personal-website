@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import { useEffect, useRef } from "react";
 
 interface Particle {
@@ -19,6 +19,7 @@ interface Particle {
 export default function BackgroundParticles() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
+    // Mount-only: particle system setup, runs once
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -287,8 +288,7 @@ export default function BackgroundParticles() {
     // ---- RESIZE ----
     window.addEventListener("resize", () => {
       resize();
-      initParticles();
-    });
+    }, { passive: true });
 
     // ---- MOUSE ----
     const handleMouse = (e: MouseEvent) => {

@@ -1,0 +1,14 @@
+# 1. 确保 MongoDB 已启动（通常 Windows 服务会自动运行，否则手动启动）
+net start MongoDB
+
+# 2. 启动 FastAPI
+cd C:\Users\Lenovo\Documents\Personal website\backend
+uvicorn app.main:app --host 0.0.0.0 --port 8001 --reload
+
+
+cd C:\Users\Lenovo\Documents\Personal website\frontend
+npx vite --port 5173 --host
+
+
+管理员后台： http://localhost:5173/admin/login
+管理账号： admin@example.com / admin123456     GE3rYWusxyTQRNZa

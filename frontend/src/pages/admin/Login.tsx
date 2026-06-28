@@ -1,4 +1,4 @@
-﻿import { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { apiPost } from "../../api/client";
 
@@ -20,7 +20,7 @@ export default function AdminLogin() {
       });
       localStorage.setItem("token", res.access_token);
       nav("/admin");
-    } catch (err: any) {
+    } catch (err: unknown) {
       setError(err.message || "Login failed");
     } finally {
       setLoading(false);

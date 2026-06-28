@@ -1,4 +1,4 @@
-﻿import { motion } from "framer-motion";
+import { motion } from "framer-motion";
 import PageTransition from "../components/animations/PageTransition";
 import ScrollReveal from "../components/animations/ScrollReveal";
 import SquigglyUnderline from "../components/SquigglyUnderline";
@@ -30,31 +30,47 @@ export default function Home() {
 
   return (
     <PageTransition>
-      {/* HERO -- 60/40 Split */}
+      {/* HERO */}
       <section className="relative min-h-[90dvh] flex items-center overflow-hidden">
         <div className="absolute top-[-20%] right-[-10%] w-[50vw] h-[50vw] rounded-full opacity-[0.08]" style={{ background: "radial-gradient(circle, #7EB8F7 0%, transparent 70%)" }} />
         <div className="absolute bottom-[-20%] left-[-10%] w-[40vw] h-[40vw] rounded-full opacity-[0.05]" style={{ background: "radial-gradient(circle, #E8C4C4 0%, transparent 70%)" }} />
         <div className="container-main relative z-10 w-full">
           <div className="grid md:grid-cols-5 gap-12 md:gap-16 items-center">
             <div className="md:col-span-3">
-              <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
-                className="font-mono text-xs tracking-[0.2em] uppercase text-[var(--color-accent)] mb-6">
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+                className="font-mono text-xs tracking-[0.2em] uppercase text-[var(--color-accent)] mb-6"
+              >
                 {t("home", "greeting")}
               </motion.p>
-              <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.1, ease: [0.25, 0.1, 0.25, 1] }}
-                className="font-display text-6xl md:text-8xl lg:text-9xl font-bold tracking-tight text-balance leading-[0.95]">
+              <motion.h1
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.1, ease: [0.25, 0.1, 0.25, 1] }}
+                className="font-display text-6xl md:text-8xl lg:text-9xl font-bold tracking-tight text-balance leading-[0.95]"
+              >
                 {t("home", "creative")}<br />
                 <span className="relative inline-block">
                   <span className="text-accent-gradient">{t("home", "developer")}</span>
                   <SquigglyUnderline />
                 </span>
               </motion.h1>
-              <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.25, ease: [0.25, 0.1, 0.25, 1] }}
-                className="mt-8 max-w-md text-base text-[var(--color-text-secondary)] leading-relaxed">
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.25, ease: [0.25, 0.1, 0.25, 1] }}
+                className="mt-8 max-w-md text-base text-[var(--color-text-secondary)] leading-relaxed"
+              >
                 {t("home", "desc")}
               </motion.p>
-              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
-                className="mt-10 flex flex-wrap gap-4">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
+                className="mt-10 flex flex-wrap gap-4"
+              >
                 <Link to="/work" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[var(--color-accent)] text-[var(--color-bg)] font-medium text-sm hover:brightness-110 transition-all">
                   {t("home", "viewWork")}
                   <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -67,8 +83,13 @@ export default function Home() {
               </motion.div>
             </div>
             <div className="md:col-span-2">
-              <motion.div initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
-                className="glass-card glass-depth-near p-8 md:p-10" style={{ borderRadius: "24px" }}>
+              <motion.div
+                initial={{ opacity: 0, x: 30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
+                className="glass-card glass-depth-near p-8 md:p-10"
+                style={{ borderRadius: "24px" }}
+              >
                 <div className="flex items-center gap-3 mb-6">
                   <div className="w-2 h-2 rounded-full bg-[var(--color-accent)]" />
                   <span className="font-mono text-xs text-[var(--color-text-tertiary)] tracking-wider uppercase">Featured</span>
@@ -190,4 +211,3 @@ export default function Home() {
     </PageTransition>
   );
 }
-

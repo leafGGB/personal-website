@@ -1,13 +1,6 @@
-﻿import { Outlet, Link, useNavigate, useLocation } from "react-router-dom";
+import { Outlet, Link, useNavigate, useLocation } from "react-router-dom";
 import { useEffect } from "react";
-
-const NAV = [
-  { to: "/admin", label: "控制台" },
-  { to: "/admin/projects", label: "项目管理" },
-  { to: "/admin/travel", label: "旅行管理" },
-  { to: "/admin/journal", label: "日记管理" },
-  { to: "/admin/messages", label: "留言管理" },
-];
+import adminNav from "../../data/admin-nav.json";
 
 export default function AdminLayout() {
   const nav = useNavigate();
@@ -34,7 +27,7 @@ export default function AdminLayout() {
         </Link>
 
         <nav className="flex-1 space-y-1">
-          {NAV.map((item) => (
+          {adminNav.map((item: { to: string; label: string }) => (
             <Link key={item.to} to={item.to} className={`block px-3 py-2 rounded-lg text-sm transition-all ${pathname === item.to ? "bg-[var(--color-accent-soft)] text-[var(--color-accent)] font-medium" : "text-[var(--color-text-secondary)] hover:text-[var(--color-text)] hover:bg-[var(--color-accent-soft)]"}`}>
               {item.label}
             </Link>

@@ -1,0 +1,7 @@
+﻿[
+  { "to": "/admin", "label": "控制台" },
+  { "to": "/admin/projects", "label": "项目管理" },
+  { "to": "/admin/travel", "label": "旅行管理" },
+  { "to": "/admin/journal", "label": "日记管理" },
+  { "to": "/admin/messages", "label": "留言管理" }
+]

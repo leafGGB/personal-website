@@ -1,0 +1,6 @@
+﻿[
+  { "to": "/admin/messages", "label": "留言管理", "desc": "查看访客留言" },
+  { "to": "/admin/projects", "label": "项目管理", "desc": "管理工作项目" },
+  { "to": "/admin/travel", "label": "旅行管理", "desc": "管理旅行记录" },
+  { "to": "/admin/journal", "label": "日记管理", "desc": "管理日记文章" }
+]

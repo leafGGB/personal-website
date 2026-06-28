@@ -1,4 +1,4 @@
-export type Lang = "zh" | "en"
+﻿export type Lang = "zh" | "en"
 
 export const translations = {
   journalDetail: {

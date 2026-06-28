@@ -1,11 +1,5 @@
-﻿import { Link } from "react-router-dom";
-
-const CARDS = [
-  { to: "/admin/messages", label: "留言管理", desc: "查看访客留言" },
-  { to: "/admin/projects", label: "项目管理", desc: "管理工作项目" },
-  { to: "/admin/travel", label: "旅行管理", desc: "管理旅行记录" },
-  { to: "/admin/journal", label: "日记管理", desc: "管理日记文章" },
-];
+import { Link } from "react-router-dom";
+import dashboardCards from "../../data/dashboard-cards.json";
 
 export default function AdminDashboard() {
   return (
@@ -16,7 +10,7 @@ export default function AdminDashboard() {
       </div>
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        {CARDS.map((c) => (
+        {dashboardCards.map((c: { to: string; label: string; desc: string }) => (
           <Link
             key={c.to}
             to={c.to}
@@ -35,4 +29,3 @@ export default function AdminDashboard() {
     </div>
   );
 }
-

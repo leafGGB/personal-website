@@ -1,6 +1,7 @@
 ﻿import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { apiGet, apiPost, apiPut } from "../../api/client";
+import Field from "../../components/admin/Field";
 
 export default function ProjectForm() {
   const nav = useNavigate();
@@ -90,16 +91,3 @@ export default function ProjectForm() {
   );
 }
 
-function Field({ label, value, onChange, type = "text", multiline, rows }: { label: string; value: string; onChange: (v: string) => void; type?: string; multiline?: boolean; rows?: number }) {
-  const cls = "glass-input w-full px-3 py-2.5 text-sm";
-  return (
-    <div>
-      <label className="block text-xs font-medium text-[var(--color-text-secondary)] mb-1.5">{label}</label>
-      {multiline ? (
-        <textarea className={cls} rows={rows || 3} value={value} onChange={(e) => onChange(e.target.value)} />
-      ) : (
-        <input type={type} className={cls} value={value} onChange={(e) => onChange(e.target.value)} />
-      )}
-    </div>
-  );
-}

@@ -1,0 +1,8 @@
+﻿[
+  { "to": "/", "labelKey": "home" },
+  { "to": "/work", "labelKey": "work" },
+  { "to": "/travel", "labelKey": "travel" },
+  { "to": "/journal", "labelKey": "journal" },
+  { "to": "/about", "labelKey": "about" },
+  { "to": "/contact", "labelKey": "contact" }
+]

@@ -1,7 +1,8 @@
-﻿import { useState, useEffect, useRef, useCallback } from "react";
+﻿import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useLanguage } from "../../contexts/LanguageContext";
 import { Moon, Sun } from "lucide-react";
+import navLinks from "../../data/navigation.json";
 
 interface NavProps {
   dark: boolean;
@@ -23,14 +24,7 @@ export default function Nav({ dark, onThemeStart }: NavProps) {
 
 
 
-  const NAV_LINKS = [
-    { to: "/", label: t("nav", "home") },
-    { to: "/work", label: t("nav", "work") },
-    { to: "/travel", label: t("nav", "travel") },
-    { to: "/journal", label: t("nav", "journal") },
-    { to: "/about", label: t("nav", "about") },
-    { to: "/contact", label: t("nav", "contact") },
-  ];
+
 
   const s = scrolled;
 
@@ -70,7 +64,7 @@ export default function Nav({ dark, onThemeStart }: NavProps) {
 
           {/* Nav Links */}
           <div className="hidden md:flex items-center gap-6 lg:gap-8">
-            {NAV_LINKS.map((link) => {
+            {navLinks.map((link: { to: string; labelKey: string }) => {
               const active = pathname === link.to;
               return (
                 <Link
@@ -78,7 +72,7 @@ export default function Nav({ dark, onThemeStart }: NavProps) {
                   to={link.to}
                   className={`droplet-btn ${s ? "!h-12 !px-6 text-[10px] lg:text-xs" : "!h-14 !px-7 text-sm lg:text-base"} ${active ? "active" : ""}`}
                 >
-                  {link.label}
+                  {t("nav", link.labelKey)}
                 </Link>
               );
             })}
@@ -136,6 +130,8 @@ export default function Nav({ dark, onThemeStart }: NavProps) {
     </header>
   );
 }
+
+
 
 
 
